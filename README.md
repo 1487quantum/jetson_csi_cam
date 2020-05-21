@@ -116,6 +116,7 @@ In other words, to set any of the arguments use the `<arg_name>:=<arg_value>` op
 * `cam_name` -- The name of the camera (corrsponding to the camera info).
 * `frame_id` -- The TF frame ID for the camera.
 * `sync_sink` -- Whether to synchronize the app sink. Setting this to false may resolve problems with sub-par framerates.
+* `flip_mth` -- Video rotation, orientation ranges from 0 - 7. (Default: 0)
 
 ## Testing your video stream
 
