@@ -7,6 +7,7 @@
   <arg name="width" default="1920" />                        <!-- Image Width -->
   <arg name="height" default="1080" />                       <!-- Image Height -->
   <arg name="fps" default="30" />                            <!-- Desired framerate. True framerate may not reach this if set too high. -->
+  <arg name="flip_mtd" default="2" />                       <!-- Flip method -->
 
   <!-- Make arguments available to parameter server -->
   <param name="$(arg cam_name)/camera_id" type="int" value="$(arg sensor_id)" />
@@ -15,9 +16,9 @@
   <param name="$(arg cam_name)/target_fps" type="int" value="$(arg fps)" />
 
   <!-- Define the GSCAM pipeline -->
-  <env name="GSCAM_CONFIG" value="nvcamerasrc sensor-id=$(arg sensor_id) ! video/x-raw(memory:NVMM),
-    width=(int)$(arg width), height=(int)$(arg height), format=(string)I420, framerate=(fraction)$(arg fps)/1 ! 
-    nvvidconv flip-method=2 ! video/x-raw, format=(string)BGRx ! videoconvert ! video/x-raw, format=(string)BGR" />
+  <env name="GSCAM_CONFIG" value="nvarguscamerasrc sensor_id=$(arg sensor_id) ! video/x-raw(memory:NVMM),
+    width=(int)$(arg width), height=(int)$(arg height), format=(string)NV12, framerate=(fraction)$(arg fps)/1 ! 
+    nvvidconv flip-method=$(arg flip_mtd) ! video/x-raw, format=(string)BGRx ! videoconvert ! video/x-raw, format=(string)BGR" />
 
   <!-- Start the GSCAM node -->
   <node pkg="gscam" type="gscam" name="$(arg cam_name)">
