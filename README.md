@@ -2,7 +2,7 @@
 
 <p align="left"><a href="http://petermoran.org/csi-cameras-on-tx2/"><img src="https://img.shields.io/badge/CSI_Cameras_on_the_TX2_(The_Easy_Way)-Learn_more_at_my_blog-blue.svg?style=social"></a></p> 
 
-This ROS package makes it simple to use CSI cameras on the Nvidia Jetson TK1, TX1, or TX2 with ROS via gstreamer and the Nvidia multimedia API. This is done by properly configuring [`gscam`](http://wiki.ros.org/gscam) to work with the Nvidia hardware.
+This ROS package makes it simple to use CSI cameras on the Nvidia Jetson TK1, TX1, TX2 or Nano with ROS via gstreamer and the Nvidia multimedia API. This is done by properly configuring [`gscam`](http://wiki.ros.org/gscam) to work with the Nvidia hardware.
 
 **Features**
 
@@ -19,7 +19,7 @@ In order to get started, you will need to download the `jetson_csi_cam`  reposit
 
 If you'd like to learn more about `gscam`, check out their [ROS wiki page](http://wiki.ros.org/gscam) or their [Github repository](https://github.com/ros-drivers/gscam).
 
-**Note:** This package was tested on a Nvidia Jetson TX2 with L4T R27.1, ROS Kinetic, and the [Leopard Imaging IMX377CS](https://www.leopardimaging.com/LI-JETSON-KIT-IMX377CS-X.html) CSI camera.
+**Note:** This package was tested on a Nvidia Jetson Nano with L4T R32, ROS Melodic, and the [Rpi2 Camera V2 (IMX219)](https://www.raspberrypi.org/products/camera-module-v2/) CSI camera.
 
 ## Dependencies
 
