@@ -39,7 +39,7 @@ Clone this repository into you `catkin_workspace`.
 
 ```
 cd ~/catkin_workspace/src
-git clone https://github.com/peter-moran/jetson_csi_cam.git 
+git clone https://github.com/1487quantum/jetson_csi_cam.git 
 ```
 
 ## 2. Install `gscam` with gstreamer-1.0 support
