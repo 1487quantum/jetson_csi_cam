@@ -4,6 +4,12 @@
   <arg name="cam_name" default="csi_cam_$(arg sensor_id)" /> <!-- The name of the camera (corrsponding to the camera info) -->
   <arg name="frame_id" default="/$(arg cam_name)_link" />    <!-- The TF frame ID. -->
   <arg name="sync_sink" default="true" />                    <!-- Synchronize the app sink. Setting this to false may resolve problems with sub-par framerates. -->
+
+<!-- CSI Settings -->
+  <arg name="cam_wb" default="1" />                          <!-- White balance mode (Default: 1, Mode: 0-9) -->
+  <arg name="cam_tnr_mode" default="2" />                <!-- Temporal noise reduction mode (Default: 1, Mode: 0-2) -->
+  <arg name="cam_aelock" default="false" />                  <!-- Auto Exposure Lock (Default: false) -->
+
   <arg name="width" default="1920" />                        <!-- Image Width -->
   <arg name="height" default="1080" />                       <!-- Image Height -->
   <arg name="fps" default="30" />                            <!-- Desired framerate. True framerate may not reach this if set too high. -->
@@ -16,7 +22,7 @@
   <param name="$(arg cam_name)/target_fps" type="int" value="$(arg fps)" />
 
   <!-- Define the GSCAM pipeline -->
-  <env name="GSCAM_CONFIG" value="nvarguscamerasrc sensor_id=$(arg sensor_id) ! video/x-raw(memory:NVMM),
+  <env name="GSCAM_CONFIG" value="nvarguscamerasrc sensor_id=$(arg sensor_id) wbmode=$(arg cam_wb) tnr-mode=$(arg cam_tnr_mode) aelock=$(arg cam_aelock) ! video/x-raw(memory:NVMM),
     width=(int)$(arg width), height=(int)$(arg height), format=(string)NV12, framerate=(fraction)$(arg fps)/1 ! 
     nvvidconv flip-method=$(arg flip_mtd) ! video/x-raw, format=(string)BGRx ! videoconvert ! video/x-raw, format=(string)BGR" />
 
