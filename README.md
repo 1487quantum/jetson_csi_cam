@@ -1,7 +1,5 @@
 # Nvidia Jetson CSI camera launcher for ROS
 
-<p align="left"><a href="http://petermoran.org/csi-cameras-on-tx2/"><img src="https://img.shields.io/badge/CSI_Cameras_on_the_TX2_(The_Easy_Way)-Learn_more_at_my_blog-blue.svg?style=social"></a></p> 
-
 This ROS package makes it simple to use CSI cameras on the Nvidia Jetson TK1, TX1, TX2 or Nano with ROS via gstreamer and the Nvidia multimedia API. This is done by properly configuring [`gscam`](http://wiki.ros.org/gscam) to work with the Nvidia hardware.
 
 **Features**
@@ -118,6 +116,7 @@ In other words, to set any of the arguments use the `<arg_name>:=<arg_value>` op
 * `cam_name` -- The name of the camera (corrsponding to the camera info).
 * `frame_id` -- The TF frame ID for the camera.
 * `sync_sink` -- Whether to synchronize the app sink. Setting this to false may resolve problems with sub-par framerates.
+* `flip_mth` -- Video rotation, orientation ranges from 0 - 7. (Default: 0)
 
 ## Testing your video stream
 
