@@ -57,6 +57,9 @@ Then edit `./gscam/Makefile` and add the CMake flag `-DGSTREAMER_VERSION_1_x=On`
 
 While this flag is only necessary if you have both `gstreamer-0.1` and `gstreamer-1.0` installed simultaneously, it is good practice to include.
 
+> If there are missing dependencies, <code>rosdep</code> coulde be used to install the missing packages:
+> ``` $ rosdep install --from-paths src --ignore-src --rosdistro=${ROS_DISTRO} -y ```
+
 ## 3. Build everything
 
 Now we build and register `gscam` and `jetson_csi_cam` in ROS.
