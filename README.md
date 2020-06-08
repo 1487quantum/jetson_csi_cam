@@ -9,6 +9,8 @@ This ROS package makes it simple to use CSI cameras on the Nvidia Jetson TK1, TX
 * Works efficiently, allowing for high resolution and/or high fps video by taking advantage of gstreamer and the Nvidia multimedia API.
 * Multi camera support.
 
+> **Note:** <code>gscam</code> is required to run this package.
+
 ---
 
 # Installation
