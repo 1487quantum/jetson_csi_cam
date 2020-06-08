@@ -24,7 +24,7 @@ If you'd like to learn more about `gscam`, check out their [ROS wiki page](http:
 For the purpose of this guide, we will assume you already have:
 
 * Gstreamer-1.0 and the Nvidia multimedia API (typically installed by Jetpack)
-* ROS Kinetic
+* ROS Melodic
   * Older versions of ROS may work, provided that a version of  `gscam` that supports gstreamer-1.0 is available for that ROS version, but this is untested.
 * `gscam` with gstreamer-1.0 support.
   * The following steps will show how to build `gscam` from source to support this, so don't worry about it yet.
