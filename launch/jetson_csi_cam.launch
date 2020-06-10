@@ -14,7 +14,7 @@
   <arg name="height" default="720" />                       <!-- Image Height -->
   <arg name="fps" default="30" />                            <!-- Desired framerate. True framerate may not reach this if set too high. -->
   <arg name="flip_mtd" default="6" />                       <!-- Flip method -->
-  <arg name="s_mode" default="3" />                       <!-- Flip method -->
+  <arg name="s_mode" default="3" />                       <!-- Sensor mode -->
 
   <!-- Make arguments available to parameter server -->
   <param name="$(arg cam_name)/camera_id" type="int" value="$(arg sensor_id)" />
