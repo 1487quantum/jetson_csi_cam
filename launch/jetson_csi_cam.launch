@@ -10,21 +10,22 @@
   <arg name="cam_tnr_mode" default="2" />                <!-- Temporal noise reduction mode (Default: 1, Mode: 0-2) -->
   <arg name="cam_aelock" default="false" />                  <!-- Auto Exposure Lock (Default: false) -->
 
-  <arg name="width" default="1920" />                        <!-- Image Width -->
-  <arg name="height" default="1080" />                       <!-- Image Height -->
+  <arg name="width" default="1280" />                        <!-- Image Width -->
+  <arg name="height" default="720" />                       <!-- Image Height -->
   <arg name="fps" default="30" />                            <!-- Desired framerate. True framerate may not reach this if set too high. -->
-  <arg name="flip_mtd" default="0" />                       <!-- Flip method -->
+  <arg name="flip_mtd" default="6" />                       <!-- Flip method -->
+  <arg name="s_mode" default="3" />                       <!-- Flip method -->
 
   <!-- Make arguments available to parameter server -->
   <param name="$(arg cam_name)/camera_id" type="int" value="$(arg sensor_id)" />
   <param name="$(arg cam_name)/image_width" type="int" value="$(arg width)" />
   <param name="$(arg cam_name)/image_height" type="int" value="$(arg height)" />
   <param name="$(arg cam_name)/target_fps" type="int" value="$(arg fps)" />
+  <param name="$(arg cam_name)/flip_mtd" type="int" value="$(arg flip_mtd)" />
 
   <!-- Define the GSCAM pipeline -->
-  <env name="GSCAM_CONFIG" value="nvarguscamerasrc sensor_id=$(arg sensor_id) wbmode=$(arg cam_wb) tnr-mode=$(arg cam_tnr_mode) aelock=$(arg cam_aelock) ! video/x-raw(memory:NVMM),
-    width=(int)$(arg width), height=(int)$(arg height), format=(string)NV12, framerate=(fraction)$(arg fps)/1 ! 
-    nvvidconv flip-method=$(arg flip_mtd) ! video/x-raw, format=(string)BGRx ! videoconvert ! video/x-raw, format=(string)BGR" />
+  <env name="GSCAM_CONFIG" value="nvarguscamerasrc sensor_id=$(arg sensor_id) sensor_mode=$(arg s_mode) tnr-mode=$(arg cam_tnr_mode) aelock=$(arg cam_aelock) ! video/x-raw(memory:NVMM), format=(string)NV12, framerate=(fraction)$(arg fps)/1 ! 
+    nvvidconv flip-method=$(arg flip_mtd) ! video/x-raw, width=(int)$(arg width), height=(int)$(arg height), format=(string)BGRx ! videoconvert ! video/x-raw, format=(string)BGR" />
 
   <!-- Start the GSCAM node -->
   <node pkg="gscam" type="gscam" name="$(arg cam_name)">
