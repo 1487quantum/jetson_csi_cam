@@ -114,14 +114,55 @@ In other words, to set any of the arguments use the `<arg_name>:=<arg_value>` op
 
 #### Accepted arguments for `jetson_csi_cam.launch`
 
+** Main **
+
 * `sensor_id` -- The sensor id of each camera
-* `width` -- Image Width
-* `height` -- Image Height
-* `fps` -- Desired framerate. True framerate may not reach this if set too high.
 * `cam_name` -- The name of the camera (corrsponding to the camera info).
 * `frame_id` -- The TF frame ID for the camera.
 * `sync_sink` -- Whether to synchronize the app sink. Setting this to false may resolve problems with sub-par framerates.
+* `calib_path` -- Parent directory path of the camera calibration configuration(s).
+
+** Camera Settings & ISP configuration **
+
+* `cam_sensor_mode` -- Preset resolution and fps of camera sensor, could be determined via `$ v4l2-ctl --list-formats-ext`
+* `cam_wb` -- Camera white balance (Default: 1, Mode: 0-9)
+* `cam_tnr_mode` -- Temporal noise reduction Mode (Default: 1, Mode: 0 (off) - 2 (high) )
+* `cam_tnr_strength` -- Temporal noise reduction strength: -1.0 <-> 1.0 
+* `cam_ee_mode` -- Edge enhancement Mode (Default: 1, Mode: 0 (off) - 2 (high) )
+* `cam_ee_strength` -- Edge enhancement Strength: -1.0 <-> 1.0
+* `cam_aelock` -- Auto Exposure Lock (Default: false)
+
+** Post processing **
+
+* `width` -- Image Width
+* `height` -- Image Height
+* `fps` -- Desired framerate. True framerate may not reach this if set too high.
 * `flip_mth` -- Video rotation, orientation ranges from 0 - 7. (Default: 0)
+
+
+  <!-- Gstreamer params -->
+   <arg name="sensor_id" default="0" />				<!-- The sensor id of the camera -->
+   <arg name="cam_name" default="csi_cam_$(arg sensor_id)" />	<!-- The name of the camera (corrsponding to the camera info) -->
+   <arg name="frame_id" default="/$(arg cam_name)_link" />	<!-- The TF frame ID -->
+   <arg name="sync_sink" default="true" />			<!-- Synchronize the app sink. Setting this to false may resolve problems with sub-par framerates. -->
+   <arg name="calib_path" default="package://jetson_csi_cam/config/camera_info/cam.yaml" />
+
+   <!-- CSI Settings -->
+   <arg name="cam_sensor_mode" default="2" />
+   <arg name="cam_wb" default="1" />			<!-- White balance mode (Default: 1, Mode: 0-9) -->
+   <!-- Temporal noise reduction -->
+   <arg name="cam_tnr_mode" default="2" />		<!-- Mode (Default: 1, Mode: 0 (off) - 2 (high) ) -->
+   <arg name="cam_tnr_strength" default="1.0" />	<!-- Strength: -1.0 <-> 1.0 -->
+   <!-- Edge enhancement -->
+   <arg name="cam_ee_mode" default="1" />		<!-- Mode (Default: 1, Mode: 0 (off) - 2 (high) ) -->
+   <arg name="cam_ee_strength" default="1.0" />	<!-- Strength: -1.0 <-> 1.0 -->
+
+   <arg name="cam_aelock" default="false" />		<!-- Auto Exposure Lock (Default: false) -->
+   <!-- Processing -->
+   <arg name="width" default="1920" />			<!-- Image Width -->
+   <arg name="height" default="1080" />			<!-- Image Height -->
+   <arg name="fps" default="30" />			<!-- Desired framerate. True framerate may not reach this if set too high. -->
+   <arg name="flip_mtd" default="6" />			<!-- Flip method, default 0 -->
 
 ## Testing your video stream
 
