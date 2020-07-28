@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+   <!-- Dual Camera Configuration (Jetson Nano) -->
+   <!-- Left Cam -->
+<arg name="cam_frame" default="cam_link"/>
+   <arg name="cam_s_mode" default="3" />
+
+   <include file="$(find jetson_csi_cam)/launch/jetson_csi_cam.launch">
+      <arg name="sensor_id" value="0" />
+      <arg name="cam_name" value="cam_L" />
+
+   <arg name="calib_path" default="package://jetson_csi_cam/config/camera_info/cam_L.yaml" />
+         <arg name="frame_id" value="$(arg cam_frame)" />
+
+   <!-- CSI Settings -->
+   <arg name="cam_sensor_mode" value="$(arg cam_s_mode)" />
+   <arg name="cam_wb" value="1" />			<!-- White balance mode (Default: 1, Mode: 0-9) -->
+   <!-- Temporal noise reduction -->
+   <arg name="cam_tnr_mode" value="3" />		<!-- Mode (Default: 1, Mode: 0 (off) - 2 (high) ) -->
+   <arg name="cam_tnr_strength" value="1.0" />	<!-- Strength: -1.0 <-> 1.0 -->
+   <!-- Edge enhancement -->
+   <arg name="cam_ee_mode" value="1" />		<!-- Mode (Default: 1, Mode: 0 (off) - 2 (high) ) -->
+   <arg name="cam_ee_strength" value="0" />	<!-- Strength: -1.0 <-> 1.0 -->
+
+   <arg name="cam_aelock" value="false" />		<!-- Auto Exposure Lock (Default: false) -->
+   <!-- Processing -->
+   <arg name="width" value="1920" />			<!-- Image Width -->
+   <arg name="height" value="1080" />			<!-- Image Height -->
+   <arg name="fps" value="30"/>			<!-- Desired framerate. True framerate may not reach this if set too high. -->
+   <arg name="flip_mtd" value="6" />			<!-- Flip method, default 0 -->
+
+   </include>
+   <!-- Right Cam -->
+   <include file="$(find jetson_csi_cam)/launch/jetson_csi_cam.launch" >
+      <arg name="sensor_id" value="1" />
+      <arg name="cam_name" value="cam_R" />
+   <arg name="calib_path" default="package://jetson_csi_cam/config/camera_info/cam_R.yaml" />
+         <arg name="frame_id" value="$(arg cam_frame)" />
+
+   <!-- CSI Settings -->
+   <arg name="cam_sensor_mode" value="$(arg cam_s_mode)" />
+   <arg name="cam_wb" value="1" />			<!-- White balance mode (Default: 1, Mode: 0-9) -->
+   <!-- Temporal noise reduction -->
+   <arg name="cam_tnr_mode" value="2" />		<!-- Mode (Default: 1, Mode: 0 (off) - 2 (high) ) -->
+   <arg name="cam_tnr_strength" value="1.0" />	<!-- Strength: -1.0 <-> 1.0 -->
+   <!-- Edge enhancement -->
+   <arg name="cam_ee_mode" value="1" />		<!-- Mode (Default: 1, Mode: 0 (off) - 2 (high) ) -->
+   <arg name="cam_ee_strength" value="0" />	<!-- Strength: -1.0 <-> 1.0 -->
+
+   <arg name="cam_aelock" value="false" />		<!-- Auto Exposure Lock (Default: false) -->
+   <!-- Processing -->
+   <arg name="width" value="1920" />			<!-- Image Width -->
+   <arg name="height" value="1080" />			<!-- Image Height -->
+   <arg name="fps" value="30" />			<!-- Desired framerate. True framerate may not reach this if set too high. -->
+   <arg name="flip_mtd" value="6" />			<!-- Flip method, default 0 -->
+
+   </include>
+
+</launch>

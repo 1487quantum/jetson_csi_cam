@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+   <!-- Dual Camera Configuration (Jetson Nano) -->
+   <!-- Params -->
+   <arg name="cam_ns" value="cam" />		<!-- Camera namespace -->
+   <arg name="cam_frame" value="stereo" />	<!-- Cam frame, have to be same for stereo: https://answers.ros.org/question/10376/stereovslam-error-assertion-left_tfframe-right_tfframe/ -->
+  
+   <arg name="apx_sync" value="True" />		<!-- Approx sync -->
+   <arg name="q_size" value="50" />		<!-- Image Queue Size -->
+
+   <group ns="$(arg cam_ns)">
+      <include file="$(find jetson_csi_cam)/launch/jetson_csi_cam_dual.launch">
+      </include>
+   </group>
+
+
+   <node name="stereo_image_proc" pkg="stereo_image_proc" type="stereo_image_proc" ns="stereo" output="screen" >
+      <param name="queue_size" value="$(arg q_size)" />
+      <param name="approximate_sync" value="$(arg apx_sync)" />
+      <remap from="/stereo/left/image_raw" to="/$(arg cam_ns)/cam_L/image_raw" />
+      <remap from="/stereo/right/image_raw" to="/$(arg cam_ns)/cam_R/image_raw" />
+      <remap from="/stereo/left/camera_info" to="/$(arg cam_ns)/cam_L/camera_info" />
+      <remap from="/stereo/right/camera_info" to="/$(arg cam_ns)/cam_R/camera_info" />
+   </node>
+
+
+   <!-- Stereo view -->
+
+   <node name="stereo_cam" pkg="image_view" type="stereo_view"  ns="stereo" output="screen">
+      <param name="queue_size" value="$(arg q_size)" />
+      <param name="approximate_sync" value="$(arg apx_sync)" />
+      <remap from="/stereo/left/image" to="/stereo/left/image_rect" />
+      <remap from="/stereo/right/image" to="/stereo/right/image_rect" />
+   </node>
+
+</launch>
+
+
