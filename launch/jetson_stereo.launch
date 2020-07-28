@@ -3,27 +3,17 @@
    <!-- Dual Camera Configuration (Jetson Nano) -->
    <!-- Params -->
    <arg name="cam_ns" value="cam" />		<!-- Camera namespace -->
-   <arg name="cam_frame" value="cam_link" />	<!-- Cam frame, have to be same for stereo: https://answers.ros.org/question/10376/stereovslam-error-assertion-left_tfframe-right_tfframe/ -->
-   <arg name="parent_calib_path" value="package://jetson_csi_cam/config/camera_info" />		<!-- Calib path -->
+   <arg name="cam_frame" value="stereo" />	<!-- Cam frame, have to be same for stereo: https://answers.ros.org/question/10376/stereovslam-error-assertion-left_tfframe-right_tfframe/ -->
+  
    <arg name="apx_sync" value="True" />		<!-- Approx sync -->
-   <arg name="q_size" value="10" />		<!-- Image Queue Size -->
+   <arg name="q_size" value="50" />		<!-- Image Queue Size -->
 
    <group ns="$(arg cam_ns)">
-      <!-- Left Cam -->
-      <include file="$(find jetson_csi_cam)/launch/jetson_csi_cam.launch">
-         <arg name="sensor_id" value="0" />
-         <arg name="cam_name" value="cam_L" />
-         <arg name="frame_id" value="$(arg cam_frame)" />
-         <arg name="calib_path" value="$(arg parent_calib_path)/cam_L.yaml" />
-      </include>
-      <!-- Right Cam -->
-      <include file="$(find jetson_csi_cam)/launch/jetson_csi_cam.launch">
-         <arg name="sensor_id" value="1" />
-         <arg name="cam_name" value="cam_R" />
-         <arg name="frame_id" value="$(arg cam_frame)" />
-         <arg name="calib_path" value="$(arg parent_calib_path)/cam_R.yaml" />
+      <include file="$(find jetson_csi_cam)/launch/jetson_csi_cam_dual.launch">
       </include>
    </group>
+
+
    <node name="stereo_image_proc" pkg="stereo_image_proc" type="stereo_image_proc" ns="stereo" output="screen" >
       <param name="queue_size" value="$(arg q_size)" />
       <param name="approximate_sync" value="$(arg apx_sync)" />
@@ -32,13 +22,17 @@
       <remap from="/stereo/left/camera_info" to="/$(arg cam_ns)/cam_L/camera_info" />
       <remap from="/stereo/right/camera_info" to="/$(arg cam_ns)/cam_R/camera_info" />
    </node>
+
+
    <!-- Stereo view -->
-   <node name="stereo_cam" pkg="image_view" type="stereo_view" output="screen">
+
+   <node name="stereo_cam" pkg="image_view" type="stereo_view"  ns="stereo" output="screen">
       <param name="queue_size" value="$(arg q_size)" />
       <param name="approximate_sync" value="$(arg apx_sync)" />
       <remap from="/stereo/left/image" to="/stereo/left/image_rect" />
       <remap from="/stereo/right/image" to="/stereo/right/image_rect" />
    </node>
+
 </launch>
 
 

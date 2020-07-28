@@ -8,21 +8,21 @@
    <arg name="calib_path" default="package://jetson_csi_cam/config/camera_info/cam.yaml" />
 
    <!-- CSI Settings -->
-   <arg name="cam_sensor_mode" default="2" />
+   <arg name="cam_sensor_mode" default="1" />
    <arg name="cam_wb" default="1" />			<!-- White balance mode (Default: 1, Mode: 0-9) -->
    <!-- Temporal noise reduction -->
    <arg name="cam_tnr_mode" default="2" />		<!-- Mode (Default: 1, Mode: 0 (off) - 2 (high) ) -->
    <arg name="cam_tnr_strength" default="1.0" />	<!-- Strength: -1.0 <-> 1.0 -->
    <!-- Edge enhancement -->
    <arg name="cam_ee_mode" default="1" />		<!-- Mode (Default: 1, Mode: 0 (off) - 2 (high) ) -->
-   <arg name="cam_ee_strength" default="1.0" />	<!-- Strength: -1.0 <-> 1.0 -->
+   <arg name="cam_ee_strength" default="0" />	<!-- Strength: -1.0 <-> 1.0 -->
 
    <arg name="cam_aelock" default="false" />		<!-- Auto Exposure Lock (Default: false) -->
    <!-- Processing -->
    <arg name="width" default="1920" />			<!-- Image Width -->
    <arg name="height" default="1080" />			<!-- Image Height -->
-   <arg name="fps" default="30" />			<!-- Desired framerate. True framerate may not reach this if set too high. -->
-   <arg name="flip_mtd" default="6" />			<!-- Flip method, default 0 -->
+   <arg name="fps" default="28" />			<!-- Desired framerate. True framerate may not reach this if set too high. -->
+   <arg name="flip_mtd" default="2" />			<!-- Flip method, default 0 -->
 
    <!-- Make arguments available to parameter server -->
    <param name="$(arg cam_name)/camera_id" type="int" value="$(arg sensor_id)" />
